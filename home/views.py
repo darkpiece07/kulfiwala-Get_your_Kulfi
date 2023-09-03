@@ -35,16 +35,15 @@ def logoutUser(request):
         return redirect('/login')
 
 def signupUser(request):
-    return HttpResponse("this is signup page!")
-    # if request.method == "POST":
-    #     form = UserCreationForm(request.POST) 
-    #     if form.is_valid():
-    #         user = form.save()
-    #         login(request, user)
-    #         return redirect('/')
-    # else:
-    #     form = UserCreationForm()
-    # return render(request, 'signup.html', {form: form})
+    if request.method == "POST":
+        form = UserCreationForm(request.POST) 
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
 
 
 def about(request):
