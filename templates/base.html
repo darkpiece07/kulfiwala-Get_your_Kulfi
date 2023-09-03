@@ -35,6 +35,10 @@
                 <a class="nav-link" href="/contact">Contact Us</a>
               </li>
             </ul>
+            <form method="post" action="/logout">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-light mx-2">logout</button>
+            </form>
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>

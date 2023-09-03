@@ -1,16 +1,51 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from home.models import Contact
 from datetime import datetime
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 
-# Create your views here.
 
 def index(request):
-    # return HttpResponse("This is Home page!")
-    context = {
-        "variable": "this is variable"
-    }
-    return render(request, 'index.html', context)
+    if request.user.is_anonymous:
+        return redirect('/login')
+    else:
+        return render(request, 'index.html')
+
+
+def loginUser(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            context = {
+                "message": "Please login with correct credentials!"
+            }
+            return render(request, 'login.html', context)
+    return render(request, 'login.html')
+
+
+def logoutUser(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect('/login')
+
+def signupUser(request):
+    return HttpResponse("this is signup page!")
+    # if request.method == "POST":
+    #     form = UserCreationForm(request.POST) 
+    #     if form.is_valid():
+    #         user = form.save()
+    #         login(request, user)
+    #         return redirect('/')
+    # else:
+    #     form = UserCreationForm()
+    # return render(request, 'signup.html', {form: form})
+
 
 def about(request):
     return render(request, 'about.html', )
