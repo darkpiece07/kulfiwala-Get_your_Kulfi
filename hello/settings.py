@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'phone_field',
+    # 'pillow'
     'home.apps.HomeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -131,3 +132,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+

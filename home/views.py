@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from home.models import Contact
+from home.models import Contact, UserProfile
 from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -45,6 +45,8 @@ def signupUser(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
+def profileUser(request):
+    return render(request, 'profile.html')
 
 def about(request):
     return render(request, 'about.html', )
@@ -54,7 +56,7 @@ def services(request):
 
 def contact(request):
     if request.method=='POST':
-        name = request.POST.get('name'),
+        name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         desc = request.POST.get('desc')
@@ -63,3 +65,22 @@ def contact(request):
         messages.success(request, "Your message has been sent!")
 
     return render(request, 'contact.html')
+
+
+def updateProfileForm(request):
+    return render(request, 'update_profile.html')
+
+def updateProfile(request):
+    print(request.POST.get)
+    if request.method == "POST":
+        name = request.POST.get('fullName')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        job_profile = request.POST.get('job_profile')
+        url1 = request.POST.get('url')
+        address = request.POST.get('address')
+
+        user = UserProfile(name = name, email = email, phone = phone, job_profile= job_profile, url1 = url1, address = address)
+        user.save()
+        messages.success(request, "Profile Updated!")
+    return redirect('/profile')

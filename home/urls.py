@@ -7,7 +7,10 @@ urlpatterns = [
     path("login", views.loginUser, name='login'),
     path("logout", views.logoutUser, name='logout'),
     path("signup", views.signupUser, name='signup'),
+    path("profile", views.profileUser, name='profile'),
     path("about", views.about, name = 'about'),
     path("services", views.services, name = 'services'),
-    path("contact", views.contact, name = "contact")
+    path("contact", views.contact, name = "contact"),
+    path("profile/update", views.updateProfileForm, name = "update_profile_form"),
+    path("profile/update/done", views.updateProfile, name = "update_profile")
 ]
