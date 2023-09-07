@@ -46,7 +46,24 @@ def signupUser(request):
     return render(request, 'signup.html', {'form': form})
 
 def profileUser(request):
-    return render(request, 'profile.html')
+    username = request.user.username
+    # print(username)
+    # user = UserProfile.objects.filter(name=username).values()[0]
+    # name = user['name']
+    # print(name)
+    if username == UserProfile.objects.filter(name=username):
+        user = UserProfile.objects.filter(name=username).values()[0]
+        context = {
+                'name': user['name'],
+                'email': user['email'],
+                'phone': user['phone'],
+                'job_profile': user['job_profile'],
+                'url1': user['url'],
+                'address': user['address']
+        }
+        return render(request, 'profile.html', context)
+    else:
+        return render(request, 'profile.html')
 
 def about(request):
     return render(request, 'about.html', )
@@ -71,7 +88,7 @@ def updateProfileForm(request):
     return render(request, 'update_profile.html')
 
 def updateProfile(request):
-    print(request.POST.get)
+    # print(request.POST.get)
     if request.method == "POST":
         name = request.POST.get('fullName')
         email = request.POST.get('email')
@@ -83,4 +100,12 @@ def updateProfile(request):
         user = UserProfile(name = name, email = email, phone = phone, job_profile= job_profile, url1 = url1, address = address)
         user.save()
         messages.success(request, "Profile Updated!")
-    return redirect('/profile')
+        context = {
+            'name': name,
+            'email': email,
+            'phone': phone,
+            'job_profile': job_profile,
+            'url1': url1,
+            'address': address
+        }
+        return render(request, "profile.html", context)

@@ -68,15 +68,15 @@
 
 
 {% block body %}
-<div class="container" style="margin-top: 20px; margin-bottom: 50px; margin-left: 100px; margin-right: 100px;">
-    <div class="row gutters">
+<div class="container" style="margin-top: 20px; margin-left: 100px; margin-right: 100px;">
+    <div class="row gutters" style="margin-bottom: 20px;">
     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
     <div class="card h-100">
         <div class="card-body">
             <div class="account-settings">
                 <div class="user-profile">
                     <div class="user-avatar">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
+                        <img style="width: 200px;height: 200px;" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
                     </div>
                     <h5 class="user-name">Yuki Hayashi</h5>
                     <h6 class="user-email">yuki@Maxwell.com</h6>
@@ -92,7 +92,7 @@
     <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
     <div class="card h-100">
         <div class="card-body">
-            <div class="row gutters">
+            <div class="row gutters" >
                 <form action="/profile/update/done" method="post">
                     {% csrf_token %}
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">

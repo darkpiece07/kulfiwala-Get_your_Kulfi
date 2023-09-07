@@ -15,13 +15,13 @@ class Contact(models.Model):
     
 
 class UserProfile(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.CharField(max_length=50)
-    phone = PhoneField()
-    job_profile = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, default="username")
+    email = models.CharField(max_length=50, default="username@gmail.com")
+    phone = PhoneField(default="+91-9999999999")
+    job_profile = models.CharField(max_length=50, default="Job profile")
     
-    url1 = models.URLField(max_length=50)
-    address = models.CharField(max_length=200)
+    url1 = models.URLField(max_length=50, default="url")
+    address = models.CharField(max_length=200, default="address")
 
     def __str__(self):
         return self.name
