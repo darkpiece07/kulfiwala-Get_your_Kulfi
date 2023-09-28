@@ -115,6 +115,19 @@ def contact(request):
 
 
 def updateProfileForm(request):
+    username = request.user.username
+    if UserProfile.objects.filter(name=username):
+        user = UserProfile.objects.filter(name=username).values()[0]
+        context = {
+                'name': user['name'],
+                'email': user['email'],
+                'phone': user['phone'],
+                'job_profile': user['job_profile'],
+                'avatar': user['avatar'],
+                'url1': user['url1'],
+                'address': user['address']
+        }
+        return render(request, 'update_profile.html', context)
     return render(request, 'update_profile.html')
 
 def updateProfile(request):
