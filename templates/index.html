@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load cart %}
 
 {% block title %}Home{% endblock title %}
 {% block body %}
@@ -42,148 +43,50 @@
         </button>
       </div>
 </div>
-<h2 class="my-2 text-center">Select from our Amazing range of Kulfis</h2>
-<div class="container">
+<h2 class="mt-5 text-center">Select from our Amazing range of Kulfis</h2>
+<div class="container pt-0">
   <div class="album py-5 bg-body-tertiary">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col">
+        {% for kulfi in kulfis %}
+        <div class="col mt-0 mb-3">
           <div class="card shadow-sm">
-            <img src="/static/malai-kulfi.1.webp" height="200" width="400" alt="">
-            <div class="card-body">
-              <p class="card-text my-0">It has a thick layer of milk called as Malai, added in the mixture of kulfi for good bite.</p>
+            <img src="{{kulfi.kulfi_pic.url}}" height="200" width="400" alt="">
+            <div class="card-body pt-1 pb-2">
+              <a href="{% url 'kulfi' %}?data_param=Malai-Kulfi" >
+                {{kulfi}}
+              </a>
               <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
                 <small class="text-body-secondary">9 mins</small>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <img src="/static/pista-kulfi.2.webp" height="200" width="400" alt="">
-            <div class="card-body">
-              <p class="card-text my-0">It is garnished by pistachios on the circumference of kulfi which makes it healthier. </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
+            <div class="card-footer row p-1 no-gutters">
+              {% if not kulfi|is_in_cart:request.session.cart %}
+              <form action="/" method="POST" class="btn-block">
+                {% csrf_token %}
+                <input hidden type="text" value="{{kulfi.id}}" name="kulfi">
+                <button type="submit" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+              </form>
+              {% else %}
+              <div class="row">
+                <form action="/" method="post" class="col-2">
+                  {% csrf_token %}
+                  <input hidden type="text" value="{{kulfi.id}}" name="kulfi">
+                  <input hidden type="text" value="True" name="remove">
+                  <input type="submit" value=" - " class="btn btn-block btn-dark">
+                </form>
+                <div class="text-center col">{{ kulfi|cart_quantity:request.session.cart }} in cart</div>
+                <form action="/" method="post" class="col-2">
+                  {% csrf_token %}
+                  <input hidden type="text" value="{{kulfi.id}}" name="kulfi">
+                  <input type="submit" value=" + " class="btn btn-block btn-dark">
+                </form>
               </div>
+              {% endif %}
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <img src="/static/mango-kulfi.3.webp" height="200" width="400" alt="">
-            <div class="card-body">
-              <p class="card-text my-0">It is totally made by mango with some mixture of milk. It tastes like a frozen mango shake.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card shadow-sm">
-            <img src="/static/strawberry_kulfi.4.webp" height="200" width="400" alt="">
-            <div class="card-body">
-              <p class="card-text my-0">Strawberry Kulfi is totally made by strawberry with some mixture of milk. It tastes like a frozen strawberry shake. </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <img src="/static/butter-scotch.5.webp" height="200" width="400" alt="">
-            <div class="card-body">
-              <p class="card-text">Butter Scotch Kulfi is totally made by butterscotch with some mixture of milk. It tastes like a frozen butter-scotch</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <img src="/static/litchi-kulfi.6.webp" height="200" width="400" alt="">
-            <div class="card-body">
-              <p class="card-text">Litchi Kulfi is totally made by litchi with some mixture of milk. It tastes like a frozen litchi shake</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card shadow-sm">
-            <img src="/static/kesar-pista.7.webp" height="200" width="400" alt="">
-            <div class="card-body">
-              <p class="card-text">Kesar Pista Kulfi is totally made by adding saffron and pistachio with some mixture of milk.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <img src="/static/kesar-badam.8.webp" height="200" width="400" alt="">
-            <div class="card-body">
-              <p class="card-text">Kesar Badam is totally made by adding saffron and almonds with some mixture of milk.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <img src="/static/chocolate.10.webp" height="200" width="400" alt="">
-            <div class="card-body">
-              <p class="card-text">It is totally made by chocolate compound with some mixture of milk. It tastes like a frozen chocolate shake.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </div>

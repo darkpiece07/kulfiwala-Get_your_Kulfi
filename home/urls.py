@@ -12,5 +12,8 @@ urlpatterns = [
     path("services", views.services, name = 'services'),
     path("contact", views.contact, name = "contact"),
     path("profile/update", views.updateProfileForm, name = "update_profile_form"),
-    path("profile/update/done", views.updateProfile, name = "update_profile")
+    path("profile/update/done", views.updateProfile, name = "update_profile"),
+    path("test/", views.debug),
+    path("kulfi", views.kulfi, name="kulfi"),
+    path("kulfi/vote", views.vote, name="vote")
 ]

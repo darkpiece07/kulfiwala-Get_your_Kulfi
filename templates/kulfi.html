@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{kulfi_name}}{% endblock title %} 
+{% block body %}
+
+<div class="container fluid text-center my-3" style="height: 500px">
+    <div class="row" style="height: 500px">
+        <div class="col">
+            <div class="col-md-4">
+                <img src="{{kulfi_pic.url}}" class="t" alt="..." />
+            </div>
+        </div>
+        <div class="col">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title my-3">{{kulfi_name}}</h5>
+
+                    <p class="card-text text-center">{{desc}}</p>
+                    <div class="my-3">
+                        <div class="btn-group">
+                            <div class="mx-5">
+                                <a  href="{% url 'vote' %}?param1={{kulfi_name}}&param2=like">
+                                    <button id="like" type="button" onclick="liked()" class="btn btn-sm btn-outline-secondary">Like</button>
+                                  </a>
+                                  <p>{{likes}}</p>
+                            </div>
+                            <div class="mx-5">
+                                <a class="mx-5" href="{% url 'vote' %}?param1={{kulfi_name}}&param2=dislike">
+                                    <button id="dislike" type="button" onclick="disliked()" class="btn btn-sm btn-outline-secondary">Dislike</button>
+                                </a>
+                                <p>{{dislike}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block js %}
+<script>
+    function liked(){
+        document.getElementById("like").style.backgroundColor = "red";
+    }
+    function disliked(){
+        document.getElementById("dislike").style.backgroundColor = "red";
+    }
+</script>
+{% endblock js %}
+
+{% endblock body %}
