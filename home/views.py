@@ -17,18 +17,16 @@ def index(request):
         if request.method == "POST":
             kulfi = request.POST.get('kulfi')
             remove = request.POST.get('remove')
-            # if remove:
-            #     print(remove)
             cart = request.session.get('cart')
             if cart:
-                print("before quantiy")
+                # print("before quantiy")
                 quantity = cart.get(kulfi)
-                print(kulfi)
-                print(quantity)
+                # print(kulfi)
+                # print(quantity)
                 if quantity:
-                    print("before remove")
+                    # print("before remove")
                     if remove:
-                        print("after remove")
+                        # print("after remove")
                         if quantity <= 1:
                             cart.pop(kulfi)
                         else: 
